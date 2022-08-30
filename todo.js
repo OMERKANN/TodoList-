@@ -18,6 +18,7 @@ function eventlisteners(){
 
 form.addEventListener("submit",addTodo);
 
+
 }
 
 function addTodo(e){
@@ -33,10 +34,34 @@ function addTodo(e){
    }
    else{
     addTodoToUI(newTodo);
+    addTodoToStorage(newTodo);
     showAlert("success","do added successfully")
    }
 
     e.preventDefault();
+}
+
+
+function getTodosFromStorage(){ // Add Storage Todo
+
+    let todos;
+
+if(localStorage.getItem("todos") === null){
+    todos = [];
+}else{
+    todos = JSON.parse(localStorage.getItem("todos"));
+}
+return todos;
+}
+
+function addTodoToStorage(newTodo){
+
+let todos = getTodosFromStorage();
+
+todos.push(newTodo);
+
+localStorage.setItem("todos",JSON.stringify(todos));
+
 }
 
 function showAlert(type,message){
