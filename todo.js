@@ -2,10 +2,10 @@
 //Select All querySelectors
 
 const form = document.querySelector("#todo-form");
-const todoInput =document.querySelector("#todo");
+const todoInput = document.querySelector("#todo");
 const todoList = document.querySelector(".list-group");
-const fırstCardBody = document.querySelector(".card-body")[0];
-const secondCardBody = document.querySelector(".card-body")[1];
+const firstCardBody = document.querySelectorAll(".card-body")[0];
+const secondCardBody = document.querySelectorAll(".card-body")[1];
 const todoFilter = document.querySelector("#filter");
 const clearButton = document.querySelector("#clear-todos");
 
@@ -24,12 +24,39 @@ function addTodo(e){
    
  const newTodo = todoInput.value.trim();
 
-  addTodoToUI(newTodo);
+   if(newTodo === ""){
 
-
+    /*<div class="alert alert-danger" role="alert">
+                        This is a danger alert—check it out!
+                      </div>*/
+    showAlert("danger","please enter a todos");
+   }
+   else{
+    addTodoToUI(newTodo);
+    showAlert("success","do added successfully")
+   }
 
     e.preventDefault();
 }
+
+function showAlert(type,message){
+ const alert = document.createElement("div");
+
+ alert.className = `alert alert-${type}`;
+
+ alert.textContent = message; 
+
+ firstCardBody.appendChild(alert);
+
+ //set time out
+
+ setTimeout (function(){
+    alert.remove();
+ },1000)
+
+ 
+}
+
 function addTodoToUI(newTodo){
 
 
