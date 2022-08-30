@@ -10,6 +10,7 @@ const todoFilter = document.querySelector("#filter");
 const clearButton = document.querySelector("#clear-todos");
 
 
+
 eventlisteners();
 
 // All event Listeners
@@ -17,10 +18,16 @@ eventlisteners();
 function eventlisteners(){
 
 form.addEventListener("submit",addTodo);
-
+document.addEventListener("DOMContentLoaded",loadAllTodosToUI);
 
 }
+function loadAllTodosToUI(){
+    let todos = getTodosFromStorage();
 
+    todos.forEach(function(todo){
+        addTodoToUI(todo);
+    })
+}
 function addTodo(e){
    
  const newTodo = todoInput.value.trim();
