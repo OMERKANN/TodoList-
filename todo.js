@@ -6,7 +6,7 @@ const todoInput = document.querySelector("#todo");
 const todoList = document.querySelector(".list-group");
 const firstCardBody = document.querySelectorAll(".card-body")[0];
 const secondCardBody = document.querySelectorAll(".card-body")[1];
-const todoFilter = document.querySelector("#filter");
+const filter = document.querySelector("#filter");
 const clearButton = document.querySelector("#clear-todos");
 
 
@@ -20,7 +20,49 @@ function eventlisteners(){
 form.addEventListener("submit",addTodo);
 document.addEventListener("DOMContentLoaded",loadAllTodosToUI);
 secondCardBody.addEventListener("click",deleteTodo)
+filter.addEventListener("keyup",filterTodos)
+clearButton.addEventListener("click",clearAllTodos);
 }
+
+//ClearTodos
+
+function clearAllTodos(e){
+  if(confirm("Are you sure you want to delete all")){
+
+    while(todoList.firstElementChild != null){
+        todoList.removeChild(todoList.firstElementChild);
+
+    }
+
+    localStorage.removeItem("todos");
+  }
+
+}
+
+//filters
+
+function filterTodos(e) {
+
+   const filterValue = e.target.value.toLowerCase();
+   const listItems = document.querySelectorAll(".list-group-item")
+
+   listItems.forEach(function(listItem){
+
+     const text = listItem.textContent.toLowerCase();
+
+     if (text.indexOf(filterValue) === -1 ){
+
+        listItem.setAttribute("style","display : none !important")
+
+      }
+      else{
+         listItem.setAttribute("style","display : none")
+      }
+
+   });
+}
+   
+   
 
 function deleteTodo(e){
 
@@ -149,6 +191,7 @@ function addTodoToUI(newTodo){
      //add TodoList 
 
      todoList.appendChild(listItem);
+     todoInput.value = "";
 
-    console.log(listItem)
+  
 }
